@@ -38,6 +38,7 @@ namespace AutoShopManager.ViewModels
             return !string.IsNullOrWhiteSpace(Username) && parameter is string password && !string.IsNullOrWhiteSpace(password);
         }
 
+        public event Action LoginSuccess;
         private void ExecuteLogin(object parameter)
         {
             string password = parameter as string;
@@ -53,8 +54,7 @@ namespace AutoShopManager.ViewModels
 
             if (authenticatedUser != null)
             {
-                ErrorMessage = $"Вход выполнен успешно! Роль: {authenticatedUser.Role}.";
-                // TODO: Вызов навигации к MainView
+                LoginSuccess.Invoke();
             }
             else
             {
